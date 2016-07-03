@@ -8,13 +8,10 @@ var gulp = require('gulp'),
   gif = require('gulp-if'),
   args = require('yargs').argv;
 
-gulp.task('move', function() {
-  return gulp
-    .src('./src/**/*.html')
-    .pipe(gulp.dest('./build/'));
+gulp.task('vetHtml', function() {
 });
 
-gulp.task('move-refresh', ['move'], function() {
+gulp.task('vetHtml-refresh', ['vetHtml'], function() {
   reload();
 });
 
@@ -22,7 +19,7 @@ gulp.task('sass', function() {
   return gulp
     .src('./src/scss/**/*.scss')
     .pipe(sass({outputStyle:'expanded'}).on('error', sassErrorHandler))
-    .pipe(gulp.dest('./build/css/'));
+    .pipe(gulp.dest('./src/css/'));
 });
 
 gulp.task('sass-refresh', ['sass'], function() {
@@ -39,24 +36,23 @@ gulp.task('vetjs', function() {
     ])
     .pipe(gif(!args.q, gprint()))
     .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(gulp.dest('./build/'));
+    .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('js-refresh', ['vetjs'], function() {
   reload();
 });
 
-gulp.task('bsync', ['move', 'sass', 'vetjs'], function() {
+gulp.task('bsync', ['vetHtml', 'sass', 'vetjs'], function() {
   bsync.init({
     server: {
-      baseDir: './build/'
+      baseDir: './src/'
     }
   });
 });
 
 gulp.task('default', ['bsync'], function() {
-  gulp.watch('./src/**/*.html', ['move-refresh']);
+  gulp.watch('./src/**/*.html', ['vetHtml-refresh']);
   gulp.watch('./src/scss/**/*.scss', ['sass-refresh']);
   gulp.watch(['./src/**/*.js', './*.js'], ['js-refresh']);
 });

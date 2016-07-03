@@ -1,62 +1,67 @@
-$tc: #444;
-$topHeight: 66vh;
-$bottomHeight: 34vh;
-
-
 body, p {
   margin: 0;
 }
+
 body {
-  color: $tc;
+  color: #444;
   width: 100vw;
 }
+
 header {
   background: #222;
   color: #fff;
   width: 100vh;
   margin: -15px;
   padding-left: 15px;
-  h1 {
-    margin: 19px 0 9px 0;
-    font-size: 1.2em;
-  }
 }
+
+header h1 {
+  margin: 19px 0 9px 0;
+  font-size: 1.2em;
+}
+
 .container {
   padding: 15px;
 }
+
 header {
   position: fixed;
   top: 0;
 }
+
 .app {
   text-align: center;
-  p {
-    padding-top: 25vh;
-    font-size: 2.2em;
-    font-weight: bold;
-  }
-  button {
-    font-size: 1.6em;
-    padding: 3%;
-    width: 80%;
-    background: #fa0;
-  }
 }
 
+.app p {
+  padding-top: 25vh;
+  font-size: 2.2em;
+  font-weight: bold;
+}
+
+.app button {
+  font-size: 1.6em;
+  padding: 3%;
+  width: 80%;
+  background: #fa0;
+}
 
 .page {
   height: 100vh;
 }
 
 .top {
-  height: $topHeight;
+  height: 66vh;
 }
+
 .bottom {
-  height: $bottomHeight;
+  height: 34vh;
 }
+
 .left {
   width: 40vw;
 }
+
 .right {
   width: 60vw;
 }
