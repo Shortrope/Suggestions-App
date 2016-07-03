@@ -14,19 +14,18 @@ header {
   background: #222;
   color: #fff;
   width: 100vh;
-  margin: -15px;
   padding-left: 15px;
+  position: fixed;
+    top: 0;
+    left: 0;
   h1 {
-    margin: 19px 0 9px 0;
+    display: inline-block;
+    margin: 10px 0 12px 0;
     font-size: 1.2em;
   }
 }
 .container {
-  padding: 15px;
-}
-header {
-  position: fixed;
-  top: 0;
+//  padding: 15px;
 }
 .app {
   text-align: center;
