@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
       managePage.classList.remove('hidden');
       editMenuItem.classList.add('hidden');
       doneMenuItem.classList.remove('hidden');
+      suggestionInput.focus();
     });
     doneMenuItem.addEventListener('click', function displayDoneList(displayEvt) {
       appPage.classList.remove('hidden');
@@ -105,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var item = suggestionInput.value;
     if (item !== '') {
       if (!suggestions.includes(item)) {
-        suggestions.push(item);
+        suggestions.unshift(item);
         displaySuggestionsUL();
       } 
       suggestionInput.value = '';
