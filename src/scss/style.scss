@@ -1,5 +1,5 @@
 $blk: #000;
-$tc: #444;
+$tc: #320;
 $yellow: #fa0;
 $menubg: $yellow;
 $menutc: $tc;
@@ -8,10 +8,22 @@ $btnColor: $blk;
 $topHeight: 66vh;
 $bottomHeight: 34vh;
 
+$comfortaa: 'Comfortaa', cursive;
+$permanentMarker: 'Permanent Marker', cursive;
+
+$hFont: $permanentMarker;
+$pFont: $comfortaa;
 
 
 body, p {
   margin: 0;
+  font-family: $hFont;
+  font-weight: 300;
+}
+h1, h2, h3 {
+//  font-family: $bangers;
+  font-family: $pFont;
+  font-weight: normal;
 }
 body {
   position: relative;
@@ -31,18 +43,21 @@ header {
     top: 0;
     left: 0;
   h1 {
+    font-family: $pFont;
+    color: #ddd;
     display: inline-block;
-    margin: 10px 0 12px 0;
-    font-size: 1.2em;
+    margin: 5px 0 9px 0;
+    font-size: 1.3em;
   }
 }
 
 // menu
 #menu {
   display: inline-block;
+  padding: 11px 28px 6px 20px;
   position: fixed;
-  top: 12px;
-  right: 25px;
+  top: 0;
+  right: 0;
   .menu-dot {
     width: 4px;
     height: 4px;
@@ -52,6 +67,9 @@ header {
   }
   .menu-dot:nth-of-type(1) {
     background: #fa0;
+  }
+  &:hover {
+    cursor: pointer;
   }
 }
 #menu_toggle {
@@ -66,11 +84,15 @@ header {
   text-transform: uppercase;
   transition: right 0.2s;
   ul {
+    font-family: $pFont;
     margin: 0;
     li {
       padding: 16px 32px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     }
+  }
+  &:hover {
+    cursor: pointer;
   }
   &.slide-in {
     right: 0;
@@ -80,11 +102,10 @@ header {
   text-align: center;
   p {
     padding-top: 25vh;
-    font-size: 2.2em;
-    font-weight: bold;
+    font-size: 2.6em;
   }
   button {
-    font-size: 1.6em;
+    font-size: 1.4em;
     padding: 10px 24px;
 //    width: 80%;
     background: #fa0;
@@ -105,9 +126,10 @@ header {
   ul {
     font-size: 1.6em;
     li {
+      color: transparentize($tc, 0.15);
       overflow: hidden;
       white-space: nowrap;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid rgba(100,40,0,0.2);
       padding: 12px 0;
       div:first-child {
         display: inline-block;
@@ -118,11 +140,14 @@ header {
       }
     }
     button {
-      background: $btnBg;
+      background: transparent;
+      border: 1px solid $btnBg;
       padding: 6px 10px 4px;
       border-radius: 4px;
       font-size: 1em;
       line-height: 1em;
+      color: rgba(70,20,0,0.7);
+      font-weight: bold;
     }
   }
 }
@@ -152,6 +177,10 @@ header {
   background: $btnBg;
   color: $btnColor;
   border-style: none;
+  font-family: $pFont;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .top {
@@ -176,3 +205,8 @@ header {
   display: block;
   clear: both;
 }
+
+  .container {
+    max-width: 990px;
+    margin: 0 auto;
+  }

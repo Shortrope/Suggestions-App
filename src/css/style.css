@@ -1,10 +1,17 @@
 body, p {
   margin: 0;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 300;
+}
+
+h1, h2, h3 {
+  font-family: "Comfortaa", cursive;
+  font-weight: normal;
 }
 
 body {
   position: relative;
-  color: #444;
+  color: #320;
   width: 100vw;
 }
 
@@ -24,16 +31,19 @@ header {
 }
 
 header h1 {
+  font-family: "Comfortaa", cursive;
+  color: #ddd;
   display: inline-block;
-  margin: 10px 0 12px 0;
-  font-size: 1.2em;
+  margin: 5px 0 9px 0;
+  font-size: 1.3em;
 }
 
 #menu {
   display: inline-block;
+  padding: 11px 28px 6px 20px;
   position: fixed;
-  top: 12px;
-  right: 25px;
+  top: 0;
+  right: 0;
 }
 
 #menu .menu-dot {
@@ -46,6 +56,10 @@ header h1 {
 
 #menu .menu-dot:nth-of-type(1) {
   background: #fa0;
+}
+
+#menu:hover {
+  cursor: pointer;
 }
 
 #menu_toggle {
@@ -62,12 +76,17 @@ header h1 {
 }
 
 #menu_toggle ul {
+  font-family: "Comfortaa", cursive;
   margin: 0;
 }
 
 #menu_toggle ul li {
   padding: 16px 32px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+#menu_toggle:hover {
+  cursor: pointer;
 }
 
 #menu_toggle.slide-in {
@@ -80,12 +99,11 @@ header h1 {
 
 #app p {
   padding-top: 25vh;
-  font-size: 2.2em;
-  font-weight: bold;
+  font-size: 2.6em;
 }
 
 #app button {
-  font-size: 1.6em;
+  font-size: 1.4em;
   padding: 10px 24px;
   background: #fa0;
 }
@@ -105,9 +123,10 @@ header h1 {
 }
 
 #manage ul li {
+  color: rgba(51, 34, 0, 0.85);
   overflow: hidden;
   white-space: nowrap;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid rgba(100, 40, 0, 0.2);
   padding: 12px 0;
 }
 
@@ -121,18 +140,21 @@ header h1 {
 }
 
 #manage ul button {
-  background: #fa0;
+  background: transparent;
+  border: 1px solid #fa0;
   padding: 6px 10px 4px;
   border-radius: 4px;
   font-size: 1em;
   line-height: 1em;
+  color: rgba(70, 20, 0, 0.7);
+  font-weight: bold;
 }
 
 #suggestion_input {
   height: 1.5em;
   width: 100%;
   font-size: 1.5em;
-  color: #444;
+  color: #320;
 }
 
 #add_btn {
@@ -157,6 +179,11 @@ header h1 {
   background: #fa0;
   color: #000;
   border-style: none;
+  font-family: "Comfortaa", cursive;
+}
+
+.btn:hover {
+  cursor: pointer;
 }
 
 .top {
@@ -183,4 +210,9 @@ header h1 {
   content: '';
   display: block;
   clear: both;
+}
+
+.container {
+  max-width: 990px;
+  margin: 0 auto;
 }
