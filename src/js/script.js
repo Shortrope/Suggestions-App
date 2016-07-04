@@ -63,9 +63,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var output = '';
     for(var i = 0; i < suggestions.length; i++) {
       output += '<li>';
-      output += suggestions[i];
 //      output += '<button>Edit</button>';
-      output += '<button data-index="' + i + '">X</button>';
+      output += '<div><button class="btn" data-index="' + i + '">X</button></div>';
+      output += '<div>' + suggestions[i] + '</div>';
       output += '</li>';
     }
     listUL.innerHTML = output;

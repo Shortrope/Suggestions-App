@@ -8,10 +8,15 @@ body {
   width: 100vw;
 }
 
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 header {
   background: #222;
   color: #fff;
-  width: 100vh;
+  width: 100vw;
   padding-left: 15px;
   position: fixed;
   top: 0;
@@ -57,13 +62,11 @@ header h1 {
 }
 
 #menu_toggle ul {
-  list-style-type: none;
   margin: 0;
-  padding-left: 0;
 }
 
 #menu_toggle ul li {
-  padding: 16px 32px 16px 42px;
+  padding: 16px 32px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
@@ -83,13 +86,70 @@ header h1 {
 
 #app button {
   font-size: 1.6em;
-  padding: 3%;
-  width: 80%;
+  padding: 10px 24px;
   background: #fa0;
 }
 
 .page {
+  padding: 0 1em;
+}
+
+#manage h2 {
+  font-size: 2em;
+  margin-top: 2em;
+  color: #000;
+}
+
+#manage ul {
+  font-size: 1.6em;
+}
+
+#manage ul li {
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+}
+
+#manage ul li div:first-child {
+  display: inline-block;
+  margin: 0 1em 0 0.8em;
+}
+
+#manage ul li div:last-child {
+  display: inline-block;
+}
+
+#manage ul button {
+  background: #fa0;
+  padding: 6px 10px 4px;
+  border-radius: 4px;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+#suggestion_input {
+  height: 1.6em;
+  width: 100%;
+  font-size: 1.4em;
+  color: #444;
+}
+
+#add_btn {
+  font-size: 1.4em;
+  width: 6em;
+  height: 2em;
+  margin-top: 0.5em;
+}
+
+.page {
   height: 100vh;
+}
+
+.btn {
+  background: #fa0;
+  color: #000;
+  border-style: none;
 }
 
 .top {
