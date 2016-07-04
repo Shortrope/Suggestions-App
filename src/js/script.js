@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
       } while (suggestions[i] === currentSuggestion);
       
       currentSuggestion = suggestions[i];
+      localStorage.currentSuggestion = currentSuggestion;
       return suggestions[i];
     } else if (suggestions.length === 1) {
       return suggestions[0];
@@ -107,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (item !== '') {
       if (!suggestions.includes(item)) {
         suggestions.unshift(item);
+        localStorage.setItem('suggestions', suggestions.toString());
         displaySuggestionsUL();
       } 
       suggestionInput.value = '';
@@ -119,10 +121,13 @@ document.addEventListener('DOMContentLoaded', function () {
   
   listUL.addEventListener('click', function ulClickFn(evt) {
     console.log(evt);
-    var i = evt.srcElement.dataset.index;
-    console.log(i);
-    suggestions.splice(i,1);
-    displaySuggestionsUL();
+    if (evt.target.nodeName === 'BUTTON') {
+      var i = evt.srcElement.dataset.index;
+      console.log(i);
+      suggestions.splice(i,1);
+      localStorage.setItem('suggestions', suggestions.toString());
+      displaySuggestionsUL();
+    }
   }, false);
   
   
@@ -130,11 +135,15 @@ document.addEventListener('DOMContentLoaded', function () {
   ////////////////////////////////////////////////////////////////////////
   // App
   
-  addSuggestion('Gulp');
-  addSuggestion('Git');
-  addSuggestion('Angular');
-  
-  suggestion.innerHTML = nextSuggestion();
+  if (localStorage.getItem('suggestions')) {
+    suggestions = localStorage.getItem('suggestions').split(',');
+  }
+  if (localStorage.getItem('currentSuggestion')) {
+    currentSuggestion = localStorage.getItem('currentSuggestion');
+    suggestion.innerHTML = currentSuggestion;
+  } else {
+    suggestion.innerHTML = nextSuggestion();
+  }
   displaySuggestionsUL();
   
   
