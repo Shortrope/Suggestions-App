@@ -19,9 +19,20 @@
   <div class="container">
     <header>
       <h1>Suggestions</h1>
+      <div id="menu">
+        <div class="menu-dot"></div>
+        <div class="menu-dot"></div>
+        <div class="menu-dot"></div>
+      </div>
+      <div id="menu_toggle">
+        <ul>
+          <li id="edit_menu_item">Edit List</li>
+          <li id="done_menu_item" class="hidden">Done</li>
+        </ul>
+      </div>
     </header>
 
-    <div class="page app">
+    <div id="app" class="page">
       <div class="top">
         <p id="suggestion">No Suggestion</p>
       </div>
@@ -31,7 +42,7 @@
     </div>
     <!-- .page .app -->
 
-    <div class="page manage hidden">
+    <div id="manage" class="page hidden">
       <input id="suggestion_input" type="text" name="new_Suggestion">
       <button id="add_btn">Add</button>
       <ul id="list"></ul>

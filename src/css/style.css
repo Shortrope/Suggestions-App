@@ -3,6 +3,7 @@ body, p {
 }
 
 body {
+  position: relative;
   color: #444;
   width: 100vw;
 }
@@ -23,17 +24,64 @@ header h1 {
   font-size: 1.2em;
 }
 
-.app {
+#menu {
+  display: inline-block;
+  position: fixed;
+  top: 12px;
+  right: 25px;
+}
+
+#menu .menu-dot {
+  width: 4px;
+  height: 4px;
+  background: #ccc;
+  margin-bottom: 4px;
+  border-radius: 2px;
+}
+
+#menu .menu-dot:nth-of-type(1) {
+  background: #fa0;
+}
+
+#menu_toggle {
+  display: inline-block;
+  position: fixed;
+  top: 44px;
+  right: -12em;
+  background: #fa0;
+  color: #000;
+  font-weight: bold;
+  text-align: right;
+  text-transform: uppercase;
+  transition: right 0.2s;
+}
+
+#menu_toggle ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+#menu_toggle ul li {
+  padding: 16px 32px 16px 42px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+#menu_toggle.slide-in {
+  right: 0;
+}
+
+#app {
   text-align: center;
 }
 
-.app p {
+#app p {
   padding-top: 25vh;
   font-size: 2.2em;
   font-weight: bold;
 }
 
-.app button {
+#app button {
   font-size: 1.6em;
   padding: 3%;
   width: 80%;
@@ -62,4 +110,10 @@ header h1 {
 
 .hidden {
   display: none;
+}
+
+.cf:after {
+  content: '';
+  display: block;
+  clear: both;
 }

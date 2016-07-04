@@ -1,12 +1,16 @@
 $tc: #444;
+$menubg: #fa0;
+$menutc: $tc;
 $topHeight: 66vh;
 $bottomHeight: 34vh;
+
 
 
 body, p {
   margin: 0;
 }
 body {
+  position: relative;
   color: $tc;
   width: 100vw;
 }
@@ -24,10 +28,49 @@ header {
     font-size: 1.2em;
   }
 }
-.container {
-//  padding: 15px;
+
+// menu
+#menu {
+  display: inline-block;
+  position: fixed;
+  top: 12px;
+  right: 25px;
+  .menu-dot {
+    width: 4px;
+    height: 4px;
+    background: #ccc;
+    margin-bottom: 4px;
+    border-radius: 2px;
+  }
+  .menu-dot:nth-of-type(1) {
+    background: #fa0;
+  }
 }
-.app {
+#menu_toggle {
+  display: inline-block;
+  position: fixed;
+  top: 44px;
+  right: -12em;
+  background: $menubg;
+  color: #000;
+  font-weight: bold;
+  text-align: right;
+  text-transform: uppercase;
+  transition: right 0.2s;
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+    li {
+      padding: 16px 32px 16px 42px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    }
+  }
+  &.slide-in {
+    right: 0;
+  }
+}
+#app {
   text-align: center;
   p {
     padding-top: 25vh;
@@ -62,4 +105,10 @@ header {
 
 .hidden {
   display: none;
+}
+
+.cf:after {
+  content: '';
+  display: block;
+  clear: both;
 }
