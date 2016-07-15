@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   
   function displaySuggestion(item) {
-    console.log(item);
     suggestion.innerHTML = item;
   }
   
@@ -98,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var output = '';
     for(var i = 0; i < suggestions.length; i++) {
       output += '<li>';
-//      output += '<button>Edit</button>';
       output += '<div><button class="btn" data-index="' + i + '">X</button></div>';
       output += '<div>' + suggestions[i] + '</div>';
       output += '</li>';
