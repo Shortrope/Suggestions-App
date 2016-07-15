@@ -123,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
       managePage.classList.remove('hidden');
       editMenuItem.classList.add('hidden');
       doneMenuItem.classList.remove('hidden');
-      suggestionInput.focus();
     });
     doneMenuItem.addEventListener('click', function displayDoneList(displayEvt) {
       appPage.classList.remove('hidden');
@@ -138,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   
   addBtn.addEventListener('click', function addFn() {
-    var item = suggestionInput.value;
+    var item = suggestionInput.value.toLowerCase();
     if (item !== '') {
       if (!suggestions.includes(item)) {
         suggestions.unshift(item);
