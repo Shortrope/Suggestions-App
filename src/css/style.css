@@ -2,6 +2,7 @@ body, p {
   margin: 0;
   font-family: "Permanent Marker", cursive;
   font-weight: 300;
+  color: #333;
 }
 
 h1, h2, h3 {
@@ -11,7 +12,7 @@ h1, h2, h3 {
 
 body {
   position: relative;
-  color: #320;
+  color: #333;
   width: 100vw;
 }
 
@@ -21,7 +22,7 @@ ul {
 }
 
 header {
-  background: #222;
+  background: #333;
   color: #fff;
   width: 100vw;
   padding-left: 15px;
@@ -34,13 +35,13 @@ header h1 {
   font-family: "Comfortaa", cursive;
   color: #ddd;
   display: inline-block;
-  margin: 5px 0 9px 0;
+  margin: 10px 0 12px 0;
   font-size: 1.3em;
 }
 
 #menu {
   display: inline-block;
-  padding: 11px 28px 6px 20px;
+  padding: 14px 28px 9px 20px;
   position: fixed;
   top: 0;
   right: 0;
@@ -49,13 +50,13 @@ header h1 {
 #menu .menu-dot {
   width: 4px;
   height: 4px;
-  background: #ccc;
-  margin-bottom: 4px;
+  background: #ddd;
+  margin-bottom: 3px;
   border-radius: 2px;
 }
 
 #menu .menu-dot:nth-of-type(1) {
-  background: #fa0;
+  background: #ffbb00;
 }
 
 #menu:hover {
@@ -67,8 +68,8 @@ header h1 {
   position: fixed;
   top: 44px;
   right: -12em;
-  background: #fa0;
-  color: #000;
+  background: #fb0;
+  color: #333;
   font-weight: bold;
   text-align: right;
   text-transform: uppercase;
@@ -98,14 +99,15 @@ header h1 {
 }
 
 #app p {
+  color: #333333;
   padding-top: 25vh;
-  font-size: 2.6em;
+  font-size: 3em;
 }
 
 #app button {
-  font-size: 1.4em;
-  padding: 10px 24px;
-  background: #fa0;
+  font-size: 1.6em;
+  padding: 14px 38px;
+  background: #fb0;
 }
 
 .page {
@@ -115,7 +117,6 @@ header h1 {
 #manage h2 {
   font-size: 2em;
   margin-top: 2em;
-  color: #000;
 }
 
 #manage ul {
@@ -123,10 +124,10 @@ header h1 {
 }
 
 #manage ul li {
-  color: rgba(51, 34, 0, 0.85);
+  color: rgba(51, 51, 51, 0.85);
   overflow: hidden;
   white-space: nowrap;
-  border-bottom: 1px solid rgba(100, 40, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 40, 100, 0.2);
   padding: 12px 0;
 }
 
@@ -141,12 +142,12 @@ header h1 {
 
 #manage ul button {
   background: transparent;
-  border: 1px solid #fa0;
+  border: 2px solid rgba(51, 51, 51, 0.3);
   padding: 6px 10px 4px;
   border-radius: 4px;
   font-size: 1em;
   line-height: 1em;
-  color: rgba(70, 20, 0, 0.7);
+  color: #feba00;
   font-weight: bold;
 }
 
@@ -154,7 +155,7 @@ header h1 {
   height: 1.5em;
   width: 100%;
   font-size: 1.5em;
-  color: #320;
+  color: #333;
 }
 
 #add_btn {
@@ -166,9 +167,9 @@ header h1 {
 }
 
 #add_btn:focus {
-  border: 1px solid #cc8800;
-  -webkit-box-shadow: 0px 0px 3px #996600;
-  box-shadow: 0px 0px 3px #996600;
+  border: 1px solid #cc9600;
+  -webkit-box-shadow: 0px 0px 3px #997000;
+  box-shadow: 0px 0px 3px #997000;
 }
 
 .page {
@@ -176,8 +177,8 @@ header h1 {
 }
 
 .btn {
-  background: #fa0;
-  color: #000;
+  background: #fb0;
+  color: #333;
   border-style: none;
   font-family: "Comfortaa", cursive;
 }
