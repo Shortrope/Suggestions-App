@@ -1,101 +1,67 @@
 document.addEventListener('DOMContentLoaded', function () {
   ////////////////////////////////////////////////////////////////////////
   // Variables
-  var suggestions = [],
-      currentSuggestion,
-      suggestion = document.getElementById('suggestion'),
-      nextBtn = document.getElementById('next_btn'),
-      suggestionInput = document.getElementById('suggestion_input'),
-      addBtn = document.getElementById('add_btn'),
-      listUL = document.getElementById('list'),
-//      menu = document.getElementById('menu'),
-      menuToggle = document.getElementById('menu_toggle'),
-//      body = document.getElementsByTagName('body')[0],
-      editMenuItem = document.getElementById('edit_menu_item'),
-      doneMenuItem = document.getElementById('done_menu_item'),
-      appPage = document.getElementById('app'),
-      managePage = document.getElementById('manage');
-  
-  
-  ////////////////////////////////////////////////////////////////////////
-  // Polyfill: Array.includes 
 
-  if (!Array.prototype.includes) {
-    Array.prototype.includes = function (searchElement /*, fromIndex*/ ) {
-      'use strict';
-      var O = Object(this);
-      var len = parseInt(O.length, 10) || 0;
-      if (len === 0) {
-        return false;
-      }
-      var n = parseInt(arguments[1], 10) || 0;
-      var k;
-      if (n >= 0) {
-        k = n;
-      } else {
-        k = len + n;
-        if (k < 0) {
-          k = 0;
-        }
-      }
-      var currentElement;
-      while (k < len) {
-        currentElement = O[k];
-        if (searchElement === currentElement ||
-          (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
-          return true;
-        }
-        k++;
-      }
-      return false;
-    };
-  }
+  var suggestions = [],
+    currentSuggestion,
+    suggestion = document.getElementById('suggestion'),
+    nextBtn = document.getElementById('next_btn'),
+    suggestionInput = document.getElementById('suggestion_input'),
+    addBtn = document.getElementById('add_btn'),
+    listUL = document.getElementById('list'),
+    menuToggle = document.getElementById('menu_toggle'),
+    editMenuItem = document.getElementById('edit_menu_item'),
+    doneMenuItem = document.getElementById('done_menu_item'),
+    appPage = document.getElementById('app'),
+    managePage = document.getElementById('manage');
+
 
   ////////////////////////////////////////////////////////////////////////
   // Functions
+
   function addSuggestion(suggestion) {
     if (suggestion) {
       suggestions.push(suggestion);
     }
   }
-  
+
   function deleteSuggestion(suggestion) {
     var i = suggestions.indexOf(suggestion);
     suggestions.splice(i, 1);
   }
-  
+
   // clear the suggestions array
   function clearSuggestions() {
     suggestions.splice(0, suggestions.length);
   }
-  
+
   // get a random suggestion from the list
   function nextSuggestion() {
     var i;
     // get random number between 0 and suggestions.length
-    if(suggestions.length > 1) {
+    if (suggestions.length > 1) {
       do {
         i = Math.floor(Math.random() * suggestions.length);
-      // do not use same suggestion 2 times in a row
+        // do not use same suggestion 2 times in a row
       } while (suggestions[i] === currentSuggestion);
-      
+
       currentSuggestion = suggestions[i];
       localStorage.currentSuggestion = currentSuggestion;
       return suggestions[i];
     } else if (suggestions.length === 1) {
       return suggestions[0];
     } else {
-      return 'No Suggestions';
+      return '';
     }
   }
-  
+
   function displaySuggestion(item) {
     suggestion.innerHTML = item;
   }
-  
+
   function displaySuggestionsUL() {
     var output = '';
-    for(var i = 0; i < suggestions.length; i++) {
+    for (var i = 0; i < suggestions.length; i++) {
       output += '<li>';
       output += '<div><button class="btn" data-index="' + i + '">X</button></div>';
       output += '<div>' + suggestions[i] + '</div>';
@@ -103,45 +69,45 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     listUL.innerHTML = output;
   }
-  
+
+  function isNotDuplicate(item) {
+    return suggestions.every(function (curr) {
+      return curr.toLowerCase() !== item.toLowerCase();
+    });
+  }
+
+
   ////////////////////////////////////////////////////////////////////////
   // Event Listeners
-  
-//  menuToggle.addEventListener('click', function toggleBtn(evt) {
-//    evt.stopPropagation();
-//    menuToggle.classList.toggle('slide-in'); 
-    
-//    body.addEventListener('click', function toggleOut(outEvt) {
-//      menuToggle.classList.toggle('slide-in'); 
-//      body.removeEventListener('click', toggleOut);
-//    });
-    
-    editMenuItem.addEventListener('click', function displayEditList(evt) {
-      appPage.classList.add('hidden');
-      managePage.classList.remove('hidden');
-      editMenuItem.classList.add('hidden');
-      doneMenuItem.classList.remove('hidden');
-    });
-    doneMenuItem.addEventListener('click', function displayDoneList(evt) {
-      appPage.classList.remove('hidden');
-      managePage.classList.add('hidden');
-      doneMenuItem.classList.add('hidden');
-      editMenuItem.classList.remove('hidden');
-    });
-//  });
-  
+
+  editMenuItem.addEventListener('click', function displayEditList(evt) {
+    appPage.classList.add('hidden');
+    managePage.classList.remove('hidden');
+    editMenuItem.classList.add('hidden');
+    doneMenuItem.classList.remove('hidden');
+  });
+  doneMenuItem.addEventListener('click', function displayDoneList(evt) {
+    appPage.classList.remove('hidden');
+    managePage.classList.add('hidden');
+    doneMenuItem.classList.add('hidden');
+    editMenuItem.classList.remove('hidden');
+  });
+  //  });
+
   nextBtn.addEventListener('click', function nextFn() {
     displaySuggestion(nextSuggestion());
+    if (suggestions.length === 0) {
+      displaySuggestion('You don\'t have any Suggestions in your list yet...');
+      nextBtn.innerHTML = 'Edit Your List >';
+    }
   });
-  
+
   addBtn.addEventListener('click', function addFn() {
-    var item = suggestionInput.value.toLowerCase();
-    if (item !== '') {
-      if (!suggestions.includes(item)) {
-        suggestions.unshift(item);
-        localStorage.setItem('suggestions', suggestions.toString());
-        displaySuggestionsUL();
-      } 
+    var item = suggestionInput.value;
+    if (item !== '' && isNotDuplicate(item)) {
+      suggestions.unshift(item);
+      localStorage.setItem('suggestions', suggestions.toString());
+      displaySuggestionsUL();
       suggestionInput.value = '';
       suggestionInput.style.border = '1px solid #bbb';
     } else {
@@ -149,23 +115,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     suggestionInput.focus();
   });
-  
+
   listUL.addEventListener('click', function ulClickFn(evt) {
     console.log(evt);
     if (evt.target.nodeName === 'BUTTON') {
       var i = evt.srcElement.dataset.index;
       console.log(i);
-      suggestions.splice(i,1);
+      suggestions.splice(i, 1);
       localStorage.setItem('suggestions', suggestions.toString());
       displaySuggestionsUL();
     }
   }, false);
-  
-  
-  
+
+
   ////////////////////////////////////////////////////////////////////////
   // App
-  
+
   if (localStorage.getItem('suggestions')) {
     suggestions = localStorage.getItem('suggestions').split(',');
   }
@@ -176,6 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
     suggestion.innerHTML = nextSuggestion();
   }
   displaySuggestionsUL();
-  
-  
+
+
 });
