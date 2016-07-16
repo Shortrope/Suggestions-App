@@ -1,4 +1,5 @@
 $blk: #333;
+$white: #ddd;
 $tc: #3b2a18;
 $tc: #013;
 $tc: #333;
@@ -10,101 +11,84 @@ $btnBg: $accent;
 $btnColor: $tc;
 $topHeight: 66vh;
 $bottomHeight: 34vh;
-
-$comfortaa: 'Comfortaa', cursive;
-$permanentMarker: 'Permanent Marker', cursive;
-
+$comfortaa: 'Comfortaa',
+cursive;
+$permanentMarker: 'Permanent Marker',
+cursive;
 $hFont: $permanentMarker;
 $pFont: $comfortaa;
-
-
-body, p {
+body,
+p {
   margin: 0;
   font-family: $hFont;
   font-weight: 300;
   color: $tc;
 }
-h1, h2, h3 {
-//  font-family: $bangers;
+
+h1,
+h2,
+h3 {
   font-family: $pFont;
   font-weight: normal;
 }
+
 body {
   position: relative;
   color: $tc;
   width: 100vw;
 }
+
 ul {
   list-style-type: none;
   padding-left: 0;
 }
+
 header {
   background: $headerbg;
-//  background-image: linear-gradient(230deg, $blk 60%, lighten($blk, 30%));
-//  background-image: radial-gradient(circle farthest-corner at 0px 0px, $blk 70%, darken($accent, 20%));
-  
   color: #fff;
   width: 100vw;
   padding-left: 15px;
   position: fixed;
-    top: 0;
-    left: 0;
+  top: 0;
+  left: 0;
   h1 {
     font-family: $pFont;
-    color: #ddd;
+    color: $white;
     display: inline-block;
-    margin: 10px 0 12px 0;
+    margin: 12px 0 15px 0;
     font-size: 1.3em;
   }
 }
 
-// menu
-#menu {
-  display: inline-block;
-  padding: 14px 28px 9px 20px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  .menu-dot {
-    width: 4px;
-    height: 4px;
-    background: #ddd;
-    margin-bottom: 3px;
-    border-radius: 2px;
-  }
-  .menu-dot:nth-of-type(1) {
-    background: lighten($accent, 0%);
-  }
-  &:hover {
-    cursor: pointer;
-  }
-}
 #menu_toggle {
   display: inline-block;
   position: fixed;
-  top: 44px;
-  right: -12em;
-  background: $menubg;
-  color: $tc;
-  font-weight: bold;
+  top: 6px;
+  right: 0;
+  background: transparent;
+  color: darken($white, 5%);
   text-align: right;
-  text-transform: uppercase;
-  transition: right 0.2s;
+  &:hover {
+    cursor: pointer;
+  }
   ul {
     font-family: $pFont;
     margin: 0;
     li {
-      padding: 16px 32px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 11px 28px 14px 18px;
+      border-radius: 4px;
+      span {
+        margin-left: 6px;
+        position: relative;
+        bottom: 1px;
+      }
     }
   }
   &:hover {
     cursor: pointer;
   }
-  &.slide-in {
-    right: 0;
-  }
 }
+
 #app {
   text-align: center;
   p {
@@ -115,7 +99,6 @@ header {
   button {
     font-size: 1.6em;
     padding: 14px 38px;
-//    width: 80%;
     background: $accent;
   }
 }
@@ -128,7 +111,7 @@ header {
 #manage {
   h2 {
     font-size: 2em;
-    margin-top: 2em;
+    margin-top: 2.6em;
   }
   ul {
     font-size: 1.6em;
@@ -136,7 +119,7 @@ header {
       color: transparentize($tc, 0.15);
       overflow: hidden;
       white-space: nowrap;
-      border-bottom: 1px solid rgba(0,40,100,0.2);
+      border-bottom: 1px solid rgba(0, 40, 100, 0.2);
       padding: 12px 0;
       div:first-child {
         display: inline-block;
@@ -158,12 +141,14 @@ header {
     }
   }
 }
+
 #suggestion_input {
   height: 1.5em;
   width: 100%;
   font-size: 1.5em;
   color: $tc;
 }
+
 #add_btn {
   font-size: 1.4em;
   width: 6em;
@@ -180,6 +165,7 @@ header {
 .page {
   height: 100vh;
 }
+
 .btn {
   background: $btnBg;
   color: $btnColor;
@@ -193,12 +179,15 @@ header {
 .top {
   height: $topHeight;
 }
+
 .bottom {
   height: $bottomHeight;
 }
+
 .left {
   width: 40vw;
 }
+
 .right {
   width: 60vw;
 }
@@ -213,7 +202,7 @@ header {
   clear: both;
 }
 
-  .container {
-    max-width: 990px;
-    margin: 0 auto;
-  }
+.container {
+  max-width: 990px;
+  margin: 0 auto;
+}

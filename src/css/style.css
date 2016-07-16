@@ -1,11 +1,14 @@
-body, p {
+body,
+p {
   margin: 0;
   font-family: "Permanent Marker", cursive;
   font-weight: 300;
   color: #333;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: "Comfortaa", cursive;
   font-weight: normal;
 }
@@ -35,45 +38,22 @@ header h1 {
   font-family: "Comfortaa", cursive;
   color: #ddd;
   display: inline-block;
-  margin: 10px 0 12px 0;
+  margin: 12px 0 15px 0;
   font-size: 1.3em;
-}
-
-#menu {
-  display: inline-block;
-  padding: 14px 28px 9px 20px;
-  position: fixed;
-  top: 0;
-  right: 0;
-}
-
-#menu .menu-dot {
-  width: 4px;
-  height: 4px;
-  background: #ddd;
-  margin-bottom: 3px;
-  border-radius: 2px;
-}
-
-#menu .menu-dot:nth-of-type(1) {
-  background: #ffbb00;
-}
-
-#menu:hover {
-  cursor: pointer;
 }
 
 #menu_toggle {
   display: inline-block;
   position: fixed;
-  top: 44px;
-  right: -12em;
-  background: #fb0;
-  color: #333;
-  font-weight: bold;
+  top: 6px;
+  right: 0;
+  background: transparent;
+  color: #d0d0d0;
   text-align: right;
-  text-transform: uppercase;
-  transition: right 0.2s;
+}
+
+#menu_toggle:hover {
+  cursor: pointer;
 }
 
 #menu_toggle ul {
@@ -82,16 +62,18 @@ header h1 {
 }
 
 #menu_toggle ul li {
-  padding: 16px 32px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 11px 28px 14px 18px;
+  border-radius: 4px;
+}
+
+#menu_toggle ul li span {
+  margin-left: 6px;
+  position: relative;
+  bottom: 1px;
 }
 
 #menu_toggle:hover {
   cursor: pointer;
-}
-
-#menu_toggle.slide-in {
-  right: 0;
 }
 
 #app {
@@ -116,7 +98,7 @@ header h1 {
 
 #manage h2 {
   font-size: 2em;
-  margin-top: 2em;
+  margin-top: 2.6em;
 }
 
 #manage ul {
