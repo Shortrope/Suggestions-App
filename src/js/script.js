@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
     appPage = document.getElementById('app'),
     managePage = document.getElementById('manage');
 
-
   ////////////////////////////////////////////////////////////////////////
   // Functions
 
@@ -70,10 +69,12 @@ document.addEventListener('DOMContentLoaded', function () {
     listUL.innerHTML = output;
   }
 
-  function isNotDuplicate(item) {
-    return suggestions.every(function (curr) {
+  function isDuplicate(item) {
+    var result = suggestions.every(function (curr) {
       return curr.toLowerCase() !== item.toLowerCase();
     });
+    
+    return !result;
   }
 
 
@@ -103,16 +104,23 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   addBtn.addEventListener('click', function addFn() {
-    var item = suggestionInput.value;
-    if (item !== '' && isNotDuplicate(item)) {
+    var item = suggestionInput.value.trim();
+    if (item === '') {
+      suggestionInput.placeholder = 'enter new suggestion';
+      suggestionInput.style.borderColor = '#f99';
+    } else if (isDuplicate(item)) {
+      suggestionInput.value = '';
+      suggestionInput.placeholder = '\'' + item.toLowerCase() + '\' already in list';
+      suggestionInput.style.borderColor = '#f99';
+    } else {
       suggestions.unshift(item);
       localStorage.setItem('suggestions', suggestions.toString());
       displaySuggestionsUL();
       suggestionInput.value = '';
+      suggestionInput.placeholder = 'enter new suggestion';
       suggestionInput.style.border = '1px solid #bbb';
-    } else {
-      suggestionInput.style.borderColor = '#faa';
     }
+    suggestionInput.value = '';
     suggestionInput.focus();
   });
 
@@ -141,6 +149,6 @@ document.addEventListener('DOMContentLoaded', function () {
     suggestion.innerHTML = nextSuggestion();
   }
   displaySuggestionsUL();
-
+  suggestionInput.placeholder = 'enter new suggestion';
 
 });
