@@ -13,10 +13,23 @@ document.addEventListener('DOMContentLoaded', function () {
     editMenuItem = document.getElementById('edit_menu_item'),
     doneMenuItem = document.getElementById('done_menu_item'),
     appPage = document.getElementById('app'),
-    managePage = document.getElementById('manage');
+    managePage = document.getElementById('manage'),
+    emptyListMessage = 'You Don\'t have any Suggestions in your list yet...';
 
   ////////////////////////////////////////////////////////////////////////
   // Functions
+
+  function storageAvailable(type) {
+    try {
+      var storage = window[type],
+        x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   function addSuggestion(suggestion) {
     if (suggestion) {
@@ -54,8 +67,42 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  function setCurrentSuggestion(item) {
+    currentSuggestion = item;
+    localStorage.currentSuggestion = item;
+  }
+
   function displaySuggestion(item) {
     suggestion.innerHTML = item;
+  }
+
+  function setNextBtnText() {
+    if (suggestions.length === 0) {
+      nextBtn.innerHTML = 'Edit List';
+    } else {
+      nextBtn.innerHTML = 'Next Suggestion';
+    }
+  }
+
+  function initSuggestionPage() {
+    if (suggestions.length === 0) {
+      displaySuggestion(emptyListMessage);
+      setNextBtnText('Edit List');
+    } else {
+      nextBtn.innerHTML = 'Next Suggestion';
+      if (currentSuggestion) {
+        displaySuggestion(currentSuggestion);
+      } else {
+        setCurrentSuggestion(nextSuggestion());
+        displaySuggestion(currentSuggestion);
+      }
+    }
+  }
+
+  function initEditPage() {
+    displaySuggestionsUL();
+    suggestionInput.placeholder = 'enter new suggestion';
+    suggestionInput.style.border = '1px solid #bbb';
   }
 
   function displaySuggestionsUL() {
@@ -73,8 +120,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var result = suggestions.every(function (curr) {
       return curr.toLowerCase() !== item.toLowerCase();
     });
-    
     return !result;
+  }
+
+  function isCurrentSuggestion(item) {
+    return item === localStorage.currentSuggestion;
   }
 
 
@@ -86,20 +136,22 @@ document.addEventListener('DOMContentLoaded', function () {
     managePage.classList.remove('hidden');
     editMenuItem.classList.add('hidden');
     doneMenuItem.classList.remove('hidden');
+    initEditPage();
   });
   doneMenuItem.addEventListener('click', function displayDoneList(evt) {
     appPage.classList.remove('hidden');
     managePage.classList.add('hidden');
     doneMenuItem.classList.add('hidden');
     editMenuItem.classList.remove('hidden');
+    initSuggestionPage();
   });
   //  });
 
   nextBtn.addEventListener('click', function nextFn() {
-    displaySuggestion(nextSuggestion());
     if (suggestions.length === 0) {
-      displaySuggestion('You don\'t have any Suggestions in your list yet...');
-      nextBtn.innerHTML = 'Edit Your List >';
+      editMenuItem.click();
+    } else {
+      displaySuggestion(nextSuggestion());
     }
   });
 
@@ -124,11 +176,19 @@ document.addEventListener('DOMContentLoaded', function () {
     suggestionInput.focus();
   });
 
+  // delete buttons on the suggestions list
   listUL.addEventListener('click', function ulClickFn(evt) {
     console.log(evt);
     if (evt.target.nodeName === 'BUTTON') {
       var i = evt.srcElement.dataset.index;
-      console.log(i);
+      if (suggestions.length > 1) {
+        if (isCurrentSuggestion(suggestions[i])) {
+          setCurrentSuggestion(nextSuggestion());
+        }
+      }
+      if (isCurrentSuggestion(suggestions[i])) {
+        setCurrentSuggestion();
+      }
       suggestions.splice(i, 1);
       localStorage.setItem('suggestions', suggestions.toString());
       displaySuggestionsUL();
@@ -137,18 +197,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   ////////////////////////////////////////////////////////////////////////
-  // App
-
-  if (localStorage.getItem('suggestions')) {
-    suggestions = localStorage.getItem('suggestions').split(',');
-  }
-  if (localStorage.getItem('currentSuggestion')) {
-    currentSuggestion = localStorage.getItem('currentSuggestion');
-    suggestion.innerHTML = currentSuggestion;
+  // Initialize App
+  if (storageAvailable('localStorage')) {
+    if (localStorage.getItem('suggestions')) {
+      suggestions = localStorage.getItem('suggestions').split(',');
+      if (localStorage.getItem('currentSuggestion')) {
+        currentSuggestion = localStorage.getItem('currentSuggestion');
+      } else {
+        currentSuggestion = nextSuggestion();
+        localStorage.currentSuggestion = currentSuggestion;
+      }
+    } else {
+      setCurrentSuggestion('');
+    }
+    initSuggestionPage();
+    initEditPage();
   } else {
-    suggestion.innerHTML = nextSuggestion();
+    suggestion.innerHTML = 'This app requires \'localStorage\'';
   }
-  displaySuggestionsUL();
-  suggestionInput.placeholder = 'enter new suggestion';
 
 });
