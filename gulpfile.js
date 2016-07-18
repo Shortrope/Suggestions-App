@@ -6,13 +6,15 @@ var gulp = require('gulp'),
   gutil = require('gulp-util'),
   gprint = require('gulp-print'),
   gif = require('gulp-if'),
-  args = require('yargs').argv;
+  args = require('yargs').argv,
+  reloadCount = 0;
 
 gulp.task('vetHtml', function() {
 });
 
 gulp.task('vetHtml-refresh', ['vetHtml'], function() {
   reload();
+  gutil.log('Reload Count: ' + ++reloadCount);
 });
 
 gulp.task('sass', function() {
@@ -24,6 +26,7 @@ gulp.task('sass', function() {
 
 gulp.task('sass-refresh', ['sass'], function() {
   reload();
+  gutil.log('Reload Count: ' + ++reloadCount);
 });
 
 gulp.task('vetjs', function() {
@@ -41,6 +44,7 @@ gulp.task('vetjs', function() {
 
 gulp.task('js-refresh', ['vetjs'], function() {
   reload();
+  gutil.log('Reload Count: ' + ++reloadCount);
 });
 
 gulp.task('bsync', ['vetHtml', 'sass', 'vetjs'], function() {

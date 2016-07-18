@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
   ////////////////////////////////////////////////////////////////////////
   // Functions
 
-  function storageAvailable(type) {
+  function isStorageAvailable(type) {
     try {
       var storage = window[type],
         x = '__storage_test__';
@@ -31,35 +31,18 @@ document.addEventListener('DOMContentLoaded', function () {
       return false;
     }
   }
-
-  function addSuggestion(suggestion) {
-    if (suggestion) {
-      suggestions.push(suggestion);
-    }
+  
+  function getRandomIndex(arr) {
+    return Math.floor(Math.random() * arr.length);
   }
-
-  function deleteSuggestion(suggestion) {
-    var i = suggestions.indexOf(suggestion);
-    suggestions.splice(i, 1);
-  }
-
-  // clear the suggestions array
-  function clearSuggestions() {
-    suggestions.splice(0, suggestions.length);
-  }
-
-  // get a random suggestion from the list
-  function nextSuggestion() {
+  
+  function nextRandomSuggestion() {
     var i;
-    // get random number between 0 and suggestions.length
     if (suggestions.length > 1) {
       do {
-        i = Math.floor(Math.random() * suggestions.length);
+        i = getRandomIndex(suggestions);
         // do not use same suggestion 2 times in a row
       } while (suggestions[i] === currentSuggestion);
-
-      currentSuggestion = suggestions[i];
-      localStorage.currentSuggestion = currentSuggestion;
       return suggestions[i];
     } else if (suggestions.length === 1) {
       return suggestions[0];
@@ -79,25 +62,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function setNextBtnText() {
     if (suggestions.length === 0) {
-      nextBtn.innerHTML = 'Edit List';
+      nextBtn.innerHTML = 'Get Started';
     } else {
       nextBtn.innerHTML = 'Next Suggestion';
     }
+  }
+  
+  function displaySuggestionsUL() {
+    var output = '';
+    for (var i = 0; i < suggestions.length; i++) {
+      output += '<li>';
+      output += '<div><button class="btn" data-index="' + i + '">X</button></div>';
+      output += '<div>' + suggestions[i] + '</div>';
+      output += '</li>';
+    }
+    listUL.innerHTML = output;
   }
 
   function initSuggestionPage() {
     if (suggestions.length === 0) {
       displaySuggestion(emptyListMessage);
-      setNextBtnText('Edit List');
     } else {
-      nextBtn.innerHTML = 'Next Suggestion';
       if (currentSuggestion) {
         displaySuggestion(currentSuggestion);
       } else {
-        setCurrentSuggestion(nextSuggestion());
+        setCurrentSuggestion(nextRandomSuggestion());
         displaySuggestion(currentSuggestion);
       }
     }
+    setNextBtnText();
   }
 
   function initEditPage() {
@@ -110,18 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
       doneBtn.classList.remove('hidden');
     }
   }
-
-  function displaySuggestionsUL() {
-    var output = '';
-    for (var i = 0; i < suggestions.length; i++) {
-      output += '<li>';
-      output += '<div><button class="btn" data-index="' + i + '">X</button></div>';
-      output += '<div>' + suggestions[i] + '</div>';
-      output += '</li>';
-    }
-    listUL.innerHTML = output;
-  }
-
+  
   function isDuplicate(item) {
     var result = suggestions.every(function (curr) {
       return curr.toLowerCase() !== item.toLowerCase();
@@ -131,6 +113,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function isCurrentSuggestion(item) {
     return item === localStorage.currentSuggestion;
+  }
+  
+  function addSuggestion(suggestion) {
+    if (suggestion) {
+      suggestions.push(suggestion);
+    }
+  }
+
+  function deleteSuggestion(suggestion) {
+    var i = suggestions.indexOf(suggestion);
+    suggestions.splice(i, 1);
+  }
+
+  function clearSuggestions() {
+    suggestions.splice(0, suggestions.length);
   }
 
 
@@ -157,7 +154,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (suggestions.length === 0) {
       editMenuItem.click();
     } else {
-      displaySuggestion(nextSuggestion());
+      setCurrentSuggestion(nextRandomSuggestion());
+      displaySuggestion(currentSuggestion);
     }
   });
 
@@ -187,18 +185,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  doneBtn.addEventListener('click', function () {
+  doneBtn.addEventListener('click', function doneFn() {
     doneMenuItem.click();
   });
 
   // delete buttons on the suggestions list
   listUL.addEventListener('click', function ulClickFn(evt) {
-    console.log(evt);
     if (evt.target.nodeName === 'BUTTON') {
       var i = evt.srcElement.dataset.index;
       if (suggestions.length > 1) {
         if (isCurrentSuggestion(suggestions[i])) {
-          setCurrentSuggestion(nextSuggestion());
+          setCurrentSuggestion(nextRandomSuggestion());
         }
       }
       if (isCurrentSuggestion(suggestions[i])) {
@@ -215,17 +212,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }, false);
 
-
+  
   ////////////////////////////////////////////////////////////////////////
   // Initialize App
-  if (storageAvailable('localStorage')) {
+  if (isStorageAvailable('localStorage')) {
     if (localStorage.getItem('suggestions')) {
       suggestions = localStorage.getItem('suggestions').split(',');
       if (localStorage.getItem('currentSuggestion')) {
         currentSuggestion = localStorage.getItem('currentSuggestion');
       } else {
-        currentSuggestion = nextSuggestion();
-        localStorage.currentSuggestion = currentSuggestion;
+        setCurrentSuggestion(nextRandomSuggestion());
       }
     } else {
       setCurrentSuggestion('');
@@ -233,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initSuggestionPage();
     initEditPage();
   } else {
-    suggestion.innerHTML = 'This app requires \'localStorage\'';
+    displaySuggestion('This app requires \'localStorage\'');
   }
 
 });
