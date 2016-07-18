@@ -17,6 +17,7 @@ $permanentMarker: 'Permanent Marker',
 cursive;
 $hFont: $permanentMarker;
 $pFont: $comfortaa;
+
 body,
 p {
   margin: 0;
@@ -147,9 +148,10 @@ header {
   width: 100%;
   font-size: 1.5em;
   color: $tc;
+  padding-left: 10px;
 }
 
-#add_btn {
+#add_btn, #done_btn {
   font-size: 1.4em;
   width: 6em;
   height: 2em;

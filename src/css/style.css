@@ -138,9 +138,10 @@ header h1 {
   width: 100%;
   font-size: 1.5em;
   color: #333;
+  padding-left: 10px;
 }
 
-#add_btn {
+#add_btn, #done_btn {
   font-size: 1.4em;
   width: 6em;
   height: 2em;
@@ -148,7 +149,7 @@ header h1 {
   padding-top: 3px;
 }
 
-#add_btn:focus {
+#add_btn:focus, #done_btn:focus {
   border: 1px solid #cc9600;
   -webkit-box-shadow: 0px 0px 3px #997000;
   box-shadow: 0px 0px 3px #997000;

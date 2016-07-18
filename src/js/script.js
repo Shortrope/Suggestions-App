@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     nextBtn = document.getElementById('next_btn'),
     suggestionInput = document.getElementById('suggestion_input'),
     addBtn = document.getElementById('add_btn'),
+    doneBtn = document.getElementById('done_btn'),
     listUL = document.getElementById('list'),
     menuToggle = document.getElementById('menu_toggle'),
     editMenuItem = document.getElementById('edit_menu_item'),
@@ -103,6 +104,11 @@ document.addEventListener('DOMContentLoaded', function () {
     displaySuggestionsUL();
     suggestionInput.placeholder = 'enter new suggestion';
     suggestionInput.style.border = '1px solid #bbb';
+    if (suggestions.length === 0) {
+      doneBtn.classList.add('hidden');
+    } else {
+      doneBtn.classList.remove('hidden');
+    }
   }
 
   function displaySuggestionsUL() {
@@ -174,6 +180,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     suggestionInput.value = '';
     suggestionInput.focus();
+    if (suggestions.length > 0) {
+      doneBtn.classList.remove('hidden');
+    } else {
+      doneBtn.classList.add('hidden');
+    }
+  });
+
+  doneBtn.addEventListener('click', function () {
+    doneMenuItem.click();
   });
 
   // delete buttons on the suggestions list
@@ -192,6 +207,11 @@ document.addEventListener('DOMContentLoaded', function () {
       suggestions.splice(i, 1);
       localStorage.setItem('suggestions', suggestions.toString());
       displaySuggestionsUL();
+      if (suggestions.length > 0) {
+        doneBtn.classList.remove('hidden');
+      } else {
+        doneBtn.classList.add('hidden');
+      }
     }
   }, false);
 
