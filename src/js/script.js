@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function isCurrentSuggestion(item) {
-    return item === localStorage.currentSuggestion;
+    return item === currentSuggestion;
   }
   
   function addSuggestion(suggestion) {
@@ -197,9 +197,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isCurrentSuggestion(suggestions[i])) {
           setCurrentSuggestion(nextRandomSuggestion());
         }
-      }
-      if (isCurrentSuggestion(suggestions[i])) {
-        setCurrentSuggestion();
+      } else {
+        setCurrentSuggestion('');
       }
       suggestions.splice(i, 1);
       localStorage.setItem('suggestions', suggestions.toString());
